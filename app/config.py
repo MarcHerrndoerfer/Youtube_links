@@ -15,4 +15,6 @@ class Settings(BaseSettings):
     host: str = "127.0.0.1"
     port: int = 8000
     
+    youtube_api_key: str | None = None
+    
 settings = Settings()

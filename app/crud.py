@@ -3,35 +3,39 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def create_link(db: Session, data: schemas.YouTubeLinkCreate):
-    db_link = models.YouTubeLink(
-        url=data.url,
-        title=data.title,
+def get_videos(db: Session):
+    return db.query(models.Video).all()
+
+
+def get_video(db: Session, video_id: int):
+    return db.query(models.Video).filter(models.Video.id == video_id).first()
+
+
+def get_video_by_youtube_id(db: Session, youtube_id: str):
+    return db.query(models.Video).filter(models.Video.youtube_id == youtube_id).first()
+
+
+def create_video(db: Session, info: schemas.YouTubeVideoInfo):
+    video = models.Video(
+        youtube_id=info.youtube_id,
+        title=info.title,
+        description=info.description,
+        thumbnail_url=info.thumbnail_url,
+        channel_title=info.channel_title,
+        duration=info.duration,
+        url=info.url
     )
-    db.add(db_link)
+    db.add(video)
     db.commit()
-    db.refresh(db_link)
-    return db_link
+    db.refresh(video)
+    return video
 
 
-def get_links(db: Session, skip: int = 0, limit: int = 100):
-    return (
-        db.query(models.YouTubeLink)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
-
-
-def delete_link(db: Session, link_id: int) -> bool:
-    link = (
-        db.query(models.YouTubeLink)
-        .filter(models.YouTubeLink.id == link_id)
-        .first()
-    )
-    if not link:
+def delete_video(db: Session, video_id: int) -> bool:
+    video = get_video(db, video_id)
+    if not video:
         return False
 
-    db.delete(link)
+    db.delete(video)
     db.commit()
     return True

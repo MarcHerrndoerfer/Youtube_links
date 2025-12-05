@@ -4,7 +4,7 @@ from pydantic import BaseModel, HttpUrl, ConfigDict
 
 
 class YouTubeLinkBase(BaseModel):
-    url: HttpUrl
+    url: HttpUrl | None = None
     title: str | None = None
 
 
@@ -21,9 +21,11 @@ class YouTubeLinkRead(YouTubeLinkBase):
     
 
 class YouTubeVideoInfo(BaseModel):
+    
     youtube_id: str
     title: str
     description: str | None = None
     thumbnail_url: str | None = None
     channel_title: str | None = None
     duration: str | None = None
+    url: str | None = None

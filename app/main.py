@@ -1,7 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .routes import links
-
 from .database import SessionLocal, Base, engine
 from . import models, schemas, crud, youtube_service
 
@@ -54,5 +52,3 @@ def delete_video(video_id: int, db: Session = Depends(get_db)):
     if not video:
         raise HTTPException(status_code=404, detail="Video not found")
 
-
-app.include_router(links.router)
