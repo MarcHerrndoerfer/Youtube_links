@@ -3,7 +3,7 @@ from .database import Base
 
 
 class Video(Base):
-    __tablename__ = "videos"
+    __tablename__ = "youtube_links"
 
     id = Column(Integer, primary_key=True, index=True)
     youtube_id = Column(String(20), unique=True, index=True, nullable=False)

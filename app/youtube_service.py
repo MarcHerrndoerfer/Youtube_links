@@ -1,7 +1,7 @@
 import re
 import requests
 from .config import settings
-from .schemas import VideoBase
+from .schemas import YouTubeVideoInfo
 
 
 YOUTUBE_VIDEO_ID_REGEX = r"(?:v=|be/)([A-Za-z0-9_-]{11})"
@@ -12,7 +12,7 @@ def extract_video_id(url: str) -> str | None:
     return match.group(1) if match else None
 
 
-def fetch_video_details(video_id: str) -> VideoBase | None:
+def fetch_video_details(video_id: str) -> YouTubeVideoInfo | None:
     params = {
         "part": "snippet,contentDetails",
         "id": video_id,
@@ -31,7 +31,7 @@ def fetch_video_details(video_id: str) -> VideoBase | None:
     snippet = item["snippet"]
     content = item["contentDetails"]
 
-    return VideoBase(
+    return YouTubeVideoInfo(
         youtube_id=video_id,
         title=snippet.get("title", ""),
         description=snippet.get("description", ""),
