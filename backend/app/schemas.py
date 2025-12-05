@@ -1,6 +1,6 @@
 
 from datetime import datetime
-from pydantic import BaseModel, HttpUrl, ConfigDict
+from pydantic import BaseModel, HttpUrl, ConfigDict,EmailStr
 
 
 class YouTubeLinkBase(BaseModel):
@@ -29,3 +29,26 @@ class YouTubeVideoInfo(BaseModel):
     channel_title: str | None = None
     duration: str | None = None
     url: str | None = None
+    
+
+class UserBase(BaseModel):
+    email: EmailStr
+
+
+class UserCreate(UserBase):
+    password: str
+
+
+class UserRead(UserBase):
+    id: int
+    model_config = ConfigDict(from_attributes=True)
+
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+class TokenData(BaseModel):
+    user_id: int | None = None
