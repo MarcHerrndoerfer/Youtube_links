@@ -42,6 +42,8 @@ def add_video(payload: schemas.YouTubeLinkCreate, db: Session = Depends(get_db))
     details = youtube_service.fetch_video_details(video_id)
     if not details:
         raise HTTPException(status_code=400, detail="Could not fetch video details")
+    
+    details.url = str(payload.url)
 
     return crud.create_video(db, details)
 
