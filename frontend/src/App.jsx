@@ -93,7 +93,7 @@ function App() {
               <span className="logoCircle">▶</span> YouTube Links
             </h1>
             <p className="subtitle">
-              Speichere deine Lieblingsvideos in einer schlanken Übersicht.
+              Save your favorite videos in a clean overview.
             </p>
           </div>
           <span className="techPill">FastAPI · React</span>
@@ -101,17 +101,17 @@ function App() {
 
         <main className="main">
           <section className="surface formCard">
-            <h2 className="sectionTitle">Neues Video hinzufügen</h2>
+            <h2 className="sectionTitle">Add New Video</h2>
             <form className="form" onSubmit={handleAdd}>
               <input
                 className="input"
                 type="url"
-                placeholder="YouTube-URL einfügen…"
+                placeholder="Paste YouTube URL…"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
               <button className="button" disabled={loading}>
-                {loading ? "Speichere…" : "Video speichern"}
+                {loading ? "Saving…" : "Save Video"}
               </button>
             </form>
 
@@ -122,15 +122,15 @@ function App() {
           <section className="surface listWrapper">
             <div className="listHeader">
               <div>
-                <h2 className="sectionTitle">Gespeicherte Videos</h2>
+                <h2 className="sectionTitle">Saved Videos</h2>
                 <p className="listSubtitle">
                   {videos.length > 0
-                    ? "Klick auf ein Thumbnail, um das Video zu öffnen."
-                    : "Noch keine Videos gespeichert."}
+                    ? "Click on a thumbnail to open the video."
+                    : "No videos saved yet."}
                 </p>
               </div>
               <span className="counterBadge">
-                {videos.length} gespeichert
+                {videos.length} saved
               </span>
             </div>
 
@@ -149,7 +149,7 @@ function App() {
                         alt={video.title}
                         className="thumbnail"
                       />
-                      <span className="thumbOverlay">Ansehen</span>
+                      <span className="thumbOverlay">Watch</span>
                     </a>
                   )}
 
@@ -161,13 +161,13 @@ function App() {
                     <div className="metaRow">
                       {video.channel_title && (
                         <span className="chip">
-                          Kanal: {video.channel_title}
+                          Channel: {video.channel_title}
                         </span>
                       )}
 
                       {video.duration && (
                         <span className="chip chipMuted">
-                          Dauer: {video.duration}
+                          Duration: {video.duration}
                         </span>
                       )}
                     </div>
@@ -179,13 +179,13 @@ function App() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Auf YouTube öffnen
+                        Open on YouTube
                       </a>
                       <button
                         className="ghostButton"
                         onClick={() => handleDelete(video.id)}
                       >
-                        Löschen
+                        Delete
                       </button>
                     </div>
                   </div>
@@ -195,8 +195,8 @@ function App() {
               {videos.length === 0 && (
                 <div className="emptyState">
                   <div className="emptyIcon">📺</div>
-                  <h3>Keine Videos gespeichert</h3>
-                  <p>Füge oben eine YouTube-URL ein, um zu starten.</p>
+                  <h3>No videos saved</h3>
+                  <p>Paste a YouTube URL above to get started.</p>
                 </div>
               )}
             </div>
