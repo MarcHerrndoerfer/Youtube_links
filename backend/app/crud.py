@@ -35,7 +35,7 @@ def get_video_by_youtube_id_for_user(
     )
 
 
-def create_video(db: Session, info: schemas.YouTubeVideoInfo):
+def create_video(db: Session, info: schemas.YouTubeVideoInfo,owner_id:int):
     video = models.Video(
         youtube_id=info.youtube_id,
         title=info.title,
@@ -43,7 +43,8 @@ def create_video(db: Session, info: schemas.YouTubeVideoInfo):
         thumbnail_url=info.thumbnail_url,
         channel_title=info.channel_title,
         duration=info.duration,
-        url=info.url
+        url=info.url,
+        user_id=owner_id,
     )
     db.add(video)
     db.commit()
@@ -104,3 +105,15 @@ def create_user(db: Session, user_in: schemas.UserCreate) -> models.User:
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def delete_video_for_user(db: Session, video_id: int, user_id: int) -> bool:
+    video = (
+        db.query(models.Video)
+        .filter(models.Video.id == video_id, models.Video.user_id == user_id)
+        .first()
+    )
+    if not video:
+        return False
+    db.delete(video)
+    db.commit()
+    return True

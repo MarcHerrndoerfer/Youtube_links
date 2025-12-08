@@ -1,6 +1,8 @@
 
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from .database import SessionLocal, Base, engine
 from . import models, schemas, crud, youtube_service
@@ -9,6 +11,18 @@ from .auth import router as auth_router, get_current_user
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="YouTube Bookmark API")
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def get_db():
@@ -50,7 +64,7 @@ def add_video(
     details = youtube_service.fetch_video_details(video_id)
     if not details:
         raise HTTPException(status_code=400, detail="Could not fetch video details")
-
+    details.url = str(payload.url)
     return crud.create_video(db, details, owner_id=current_user.id)
 
 
