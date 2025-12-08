@@ -477,3 +477,73 @@ body {
   max-width: 1100px;
   margin: 0 auto;           
 }
+
+.authCard {
+  margin-bottom: 1.5rem;
+}
+
+.authCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.smallBadge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: rgba(60, 130, 246, 0.08);
+  color: #2563eb;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.authTabs {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.15rem;
+  background: #f3f4f6;
+  margin-bottom: 1rem;
+}
+
+.authTab {
+  border: none;
+  background: transparent;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.authTabActive {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  color: #111827;
+}
+
+.authLoggedInRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .authLoggedInRow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.authLoggedInText {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.authLoggedInActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
